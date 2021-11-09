@@ -17,6 +17,15 @@ $app->get('/', function (Request $request, Response $response) {
     return $response;
 });
 
+$app->get('/validar-numero/{numero_raw}', function (Request $request, Response $response, array $args) {
+    $numeroRaw = $args['numero_raw'];
+    $numero = $request->getAttribute('numero');
+
+    $response->getBody()->write("<p>O número é $numeroRaw</p>");
+    $response->getBody()->write("<p>O número filtrado é $numero</p>");
+    return $response;
+})->add(encoinfo\minicurso\slim\middleware\FiltrarEntradaInt::class);
+
 $app->get('/hello/{name}', function (Request $request, Response $response, array $args) {
     $name = $args['name'];
     $response->getBody()->write("Hello, $name");
