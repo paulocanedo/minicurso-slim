@@ -15,15 +15,16 @@ services:
     image: php:8.0-fpm-alpine
     volumes:
       - type: bind
-        source: ./app/public/
-        target: /var/www/public
+        source: ./app/
+        target: /var/www/
         read_only: true
+    depends_on: 
+      - php-composer
 
   php-composer:
-    build:
-      context: .
-      # target: 
+    image: composer:latest
+    command: "composer install"
     volumes:
       - type: bind
-        source: ./app
-        target: /app
+        source: ./app/
+        target: /app/
