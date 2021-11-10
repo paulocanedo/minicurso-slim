@@ -10,17 +10,13 @@ return (function(Slim\App $app) {
         return $response;
     });
 
-    $app->get('/validar-numero/{numero_raw}', function (Request $request, Response $response, array $args) {
-        $numeroRaw = $args['numero_raw'];
-        $numero = $request->getAttribute('numero');
-
-        $response->getBody()->write("<p>O número é $numeroRaw</p>");
+    $app->get('/validar-numero/{numero_raw}', function (Request $request, Response $response, string $numero, string $numero_raw) {
+        $response->getBody()->write("<p>O número é $numero_raw</p>");
         $response->getBody()->write("<p>O número filtrado é $numero</p>");
         return $response;
     })->add(encoinfo\minicurso\slim\middleware\FiltrarEntradaInt::class);
 
-    $app->get('/hello/{name}', function (Request $request, Response $response, array $args) {
-        $name = $args['name'];
+    $app->get('/hello/{name}', function (Request $request, Response $response, string $name) {
         $response->getBody()->write("Hello, $name");
         return $response;
     })->add(encoinfo\minicurso\slim\middleware\LinhaHorizontal::class);
